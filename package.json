@@ -1,0 +1,28 @@
+{
+  "name": "keystone-app",
+  "version": "1.0.3",
+  "private": true,
+  "scripts": {
+    "dev-keystone": "echo start keystone http://localhost:$PORT_KEYSTONE && cross-env PORT=$PORT_KEYSTONE keystone dev",
+    "start-keystone": "keystone start",
+    "build-keystone": "keystone build",
+    "server": "node server.js",
+    "dev-all": "concurrently \"npm run dev-keystone\" \"wait-on http://localhost:$PORT_KEYSTONE && npm run server\"",
+    "dev": "dotenv -e .env npm run dev-all"
+  },
+  "dependencies": {
+    "@keystone-6/auth": "^8.0.0",
+    "@keystone-6/core": "^6.3.1",
+    "@keystone-6/fields-document": "^9.0.0",
+    "body-parser": "^1.20.3",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "typescript": "^5.5.0",
+    "wait-on": "^8.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "dotenv-cli": "^7.4.4"
+  }
+}
