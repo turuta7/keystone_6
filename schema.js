@@ -35,7 +35,10 @@ const lists = {
       title: text({ validation: { isRequired: true }, isIndexed: "unique" }),
       description: text({ ui: { displayMode: "textarea" } }), // Описание товара
       price: float({ validation: { isRequired: true } }), // Цена товара
-      quantity: integer({ validation: { isRequired: true, min: 0 } }), // Количество товара на складе
+      // quantity: integer({
+      //   validation: { isRequired: true, min: 0 },
+      //   defaultValue: 0,  // Значение по умолчанию
+      // }),
       createdAt: timestamp({ defaultValue: { kind: "now" } }), // Дата создания товара
     },
   }),

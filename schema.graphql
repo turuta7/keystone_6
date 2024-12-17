@@ -147,7 +147,6 @@ type Car {
   title: String
   description: String
   price: Float
-  quantity: Int
   createdAt: DateTime
 }
 
@@ -164,7 +163,6 @@ input CarWhereInput {
   title: StringFilter
   description: StringFilter
   price: FloatFilter
-  quantity: IntFilter
   createdAt: DateTimeNullableFilter
 }
 
@@ -173,7 +171,6 @@ input CarOrderByInput {
   title: OrderDirection
   description: OrderDirection
   price: OrderDirection
-  quantity: OrderDirection
   createdAt: OrderDirection
 }
 
@@ -181,7 +178,6 @@ input CarUpdateInput {
   title: String
   description: String
   price: Float
-  quantity: Int
   createdAt: DateTime
 }
 
@@ -194,7 +190,6 @@ input CarCreateInput {
   title: String
   description: String
   price: Float
-  quantity: Int
   createdAt: DateTime
 }
 

@@ -25,6 +25,5 @@ model Car {
   title       String    @unique @default("")
   description String    @default("")
   price       Float
-  quantity    Int
   createdAt   DateTime? @default(now())
 }

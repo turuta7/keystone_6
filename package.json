@@ -3,12 +3,14 @@
   "version": "1.0.3",
   "private": true,
   "scripts": {
-    "dev-keystone": "echo start keystone http://localhost:$PORT_KEYSTONE && cross-env PORT=$PORT_KEYSTONE keystone dev",
     "start-keystone": "keystone start",
     "build-keystone": "keystone build",
+    "sync": "keystone dev",
     "server": "node server.js",
-    "dev-all": "concurrently \"npm run dev-keystone\" \"wait-on http://localhost:$PORT_KEYSTONE && npm run server\"",
-    "dev": "dotenv -e .env npm run dev-all"
+    "dev": "dotenv -e .envnpm run dev-all",
+    "dev-all": "concurrently \"npm run dev-keystone\" $$ \"wait-on http://localhost:$PORT_KEYSTONE && npm run server\"",
+    "wait-for-server": "until nc -z localhost $PORT_KEYSTONE; do echo 'Waiting for server...'; sleep 2; done",
+    "dev-keystone": "keystone dev"
   },
   "dependencies": {
     "@keystone-6/auth": "^8.0.0",
@@ -18,8 +20,10 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "morgan": "^1.10.0",
     "typescript": "^5.5.0",
-    "wait-on": "^8.0.1"
+    "wait-on": "^8.0.1",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "concurrently": "^9.1.0",

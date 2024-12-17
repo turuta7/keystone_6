@@ -1,13 +1,14 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const morgan = require("morgan");
 
 // Импортируем роутеры
 const carRoutes = require("./src/routes/carRoutes");
 
 // Используем middleware для парсинга JSON
 app.use(bodyParser.json());
-
+app.use(morgan("dev"));
 // Подключаем маршруты
 app.use("/api/cars", carRoutes);
 
@@ -17,24 +18,9 @@ app.use((err, req, res, next) => {
 });
 
 // Запуск сервера
-const PORT = process.env.PORT || 3010;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// const PORT = process.env.PORT || 3010;
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
+module.exports = app
 
-// const { PrismaClient } = require("@prisma/client");
-
-// // Инициализация Prisma Client
-// const prisma = new PrismaClient();
-
-// async function getAllCars() {
-//   try {
-//     const cars = await prisma.car.findMany(); // Используем Prisma для получения всех автомобилей
-//     console.log(cars);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// // Запуск функции
-// getAllCars().catch((err) => console.error(err));
