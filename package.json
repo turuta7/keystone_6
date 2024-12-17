@@ -3,14 +3,9 @@
   "version": "1.0.3",
   "private": true,
   "scripts": {
-    "start-keystone": "keystone start",
-    "build-keystone": "keystone build",
-    "sync": "keystone dev",
-    "server": "node server.js",
-    "dev": "dotenv -e .envnpm run dev-all",
-    "dev-all": "concurrently \"npm run dev-keystone\" $$ \"wait-on http://localhost:$PORT_KEYSTONE && npm run server\"",
-    "wait-for-server": "until nc -z localhost $PORT_KEYSTONE; do echo 'Waiting for server...'; sleep 2; done",
-    "dev-keystone": "keystone dev"
+    "start": "keystone start",
+    "build": "keystone build",
+    "dev": "keystone dev"
   },
   "dependencies": {
     "@keystone-6/auth": "^8.0.0",
@@ -22,11 +17,6 @@
     "express": "^4.21.2",
     "morgan": "^1.10.0",
     "typescript": "^5.5.0",
-    "wait-on": "^8.0.1",
     "winston": "^3.17.0"
-  },
-  "devDependencies": {
-    "concurrently": "^9.1.0",
-    "dotenv-cli": "^7.4.4"
   }
 }

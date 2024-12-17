@@ -1,36 +1,37 @@
-const { config } = require("@keystone-6/core");
-const { lists } = require("./schema");
+const morgan = require("morgan");
 require("dotenv").config();
 
-const morgan = require("morgan");
+const { config } = require("@keystone-6/core");
+const { lists } = require("./schema");
+
 const app = require("./server");
-const carRoutes = require("./src/routes/carRoutes");
 
 const PORT_KEYSTONE = process.env.PORT_KEYSTONE || 5000;
+const PORT = process.env.PORT_SERVER || 3010;
+const URL =
+  process.env.DATABASE_URL ||
+  "postgresql://myuser:mypassword@localhost:5432/mydatabase";
 
 export default config({
   db: {
     onConnect: () => {
-      console.log("Database connected and server is ready!");
-      const PORT = process.env.PORT || 3010;
-      app.use(morgan("dev")); 
+      console.log("***Database connected and server is ready!***");
+      // app.use(morgan("dev"));
       app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
+        console.log(`***Server is running on port ${PORT}***`);
       });
     },
     provider: "postgresql",
-    url:
-      process.env.DATABASE_URL ||
-      "postgresql://myuser:mypassword@localhost:5432/mydatabase",
+    url: URL,
   },
   lists,
   server: {
     cors: { origin: ["*"], credentials: true },
     port: PORT_KEYSTONE,
     maxFileSize: 200 * false,
-    // Включение логирования
+    // Enable logging
     logger: {
-      level: "info", // Уровень логирования (debug, info, warn, error)
+      level: "info",
       transports: [
         // Вывод в консоль
         new (require("winston").transports.Console)({
@@ -42,9 +43,9 @@ export default config({
       ],
     },
 
-    // extendExpressApp: (app) => {
-    //   app.use(morgan("dev")); 
-    //   app.use("/api/cars", carRoutes);
-    // },
+    extendExpressApp: (app) => {
+      app.use(morgan("dev"));
+      // app.use("/api/cars", require("./src/routes/carRoutes"));
+    },
   },
 });
